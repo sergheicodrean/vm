@@ -1,0 +1,2 @@
+Serial: MRX3F-47B9T-2487J-KWKMF-RPWBY
+-net user -net nic,model=rtl8139

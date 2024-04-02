@@ -1,0 +1,45 @@
+#####qemu command (>40G), more (>80G) for gaming
+qemu-img create -f qcow2 _primary.qcow2 50G
+
+#replace shared.qcow  with games.qcow for gaming
+qemu-system-x86_64 -m 4G -cpu host -enable-kvm -smp 4 -hdb ./shared.qcow2 -hda _primary.qcow2  -device virtio-vga-gl -display sdl,gl=on -soundhw all -cdrom ./install/archlinux-x86_64.iso -hdd ./base/arch-spin.iso -boot menu=on
+
+#use for multiple cdroms 
+-drive file=disk.iso,index=1,media=cdrom
+
+#in the installer
+mkdir spin
+mount /dev/sdc spin
+cp spin/arch-spin-install.sh .
+chmod a+x arch-spin-install.sh
+./arch-spin-install.sh
+arch-chroot /mnt
+
+#as chroot
+/home/arch-spin-chroot.sh
+
+#as root
+/home/arch-spin-root.sh
+
+#as user
+/home/arch-spin-user.sh
+sudo rm /home/*.sh
+
+#run sudo make clean install - in install-source suckless projects
+
+#install yay: run this in yay source 
+makepkg -si
+#install dotnet - run sh from downloads
+#nvim plugins:
+#PlugInstall
+#Omnisharp: open a c# file and it will download the server
+## additionaly run :OmniSharpInstall
+## run dotnet restore in the solution folder
+# install dotnet 6 (new one for the cardgame) (--channel 6.0)
+add cpp and c_sharp to treesitter
+# for transparent bg:
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+#:bp - go to prev buffer (after go to deffinition)
+remap C-d, C-u for scrolling to C-dzz
+"_d - deletes into void register -> remap to leader p, "_dP in x mode
